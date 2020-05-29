@@ -5,19 +5,20 @@ services:
 
 env:
   global:
-  - DOCKER_REPO=mvallim/debian-gluster
+  - DOCKER_IMAGE=mvallim/debian-gluster
   - secure: kpE3OUH0o3SmyBzkKMl8N5xmN+DbwyuF9A53iyS9yKVsxPB4inKWGjK7fbYMkaKp4Wx87hTVxC+kim5KehuTuHjkAzffpA65mnZw2rmWWzs5EQszL7gYzallJtLQIDlClDvznGqQviT9YU1HFIqTRGnPm4MFoCwBz6EVfXSDmDwZySeaDsjYCz5uYZYKkI0Msl6/Qy7+xt1+jzGFP6wkyKlGjkUxcqzkRHeLmNfI5Gx8mNfpu4v0KKGqIU0GQ4IOQx9bVTMEgy3YFaBp4mgW64rC1aqcg8Bg7Vz5/gZ/yqzO0RPCgdI+7wpDbo9YXG9PBvcfzkaDmL8KE77p85WGZKA/kg7xwHxHEhR12tO+e4gNxNAV9rrLr2P8pdfsoVHdt9CtVzZ7CViqsfbt+otv4mUt4TCJ3bDBUgK3/qSsor0F5YLe0oV5FwC4smMLn/wdQRb4fnLNE0PLwK448E41Z//nVmPJg/u+KifcxB604/5zeLb9zNCCnHYnmtB4qkEhdDu0/0IS39+SxHebxX1DDk5bIocTknAk+zC3Hzu/JyzmwZGRtB1vFaoz+URzC0VOlc7h4QvcDO593AIFwSSSzmEHpsA6ZX1iAxMCtPGcua8YTppz1imkjdnwcutdXj3oiqzr756Y6OOqKtgBto3X+QouzgBHsof6Ck+FPGuorTg=
   - secure: mztNlQ1XL4krPL5CcIqUrTzRgDq8RqJXTx/lC5JCo/5zu465eJfq523wKK48Lzd+50zNdawYT5DWNmBIXT2/9BoLX2GeJg6zsqMSRvYFFH3kECh4B+gAhzhJHGaYCECvtyXMbLN8ej8rbev5jEOp28iq6b0RTLlpoNrspsgCh113S1A4w1bErm8oYRxTUH4gVpsFFLc3qAlfpzd1IgmhcxoZGyJEwWKP26cp0ITQyMUssGgh99HF/nhzeLVD90LDvPAjU5cErrfFWVlz0kGs2pH8fjIyvW0a6/vEEE5HnHwUJD99j8w0B/Uu+CQbtKnSUsEEAwJ0219UDLTTMyhEQ2vmFifgbLgVRU12yeV5n/jtl7eRjZ2l5JlGl1oYK8OVOZf8d4lg3ulvOcg0dVuvFudFuEvPBsplA2jm9uDS/ycPCOik0v2g2NYNFIA5hHWhN9u6OWDvv2eJ1W/l7z4wSRl/zOEXuBcL2/j6SJOoz7pgCfIOFaK9ZP3WZ/KZOPaN34wv7Kxyt9rmCVOHRXeqZYnv6BZGvA4uMtWoo0n0i0lPcgFV2NlKdrmQj7F2ff7ZwtTWcFD7hgNYEphI0BYUQHM3Xu8qmMjBWtU11+M/al1mjEs5MFrHd5Mv++QktjtCB3spXLZExa2lYk8ECqypqWL8+LQgsvmXsmxELmhGu4c=
 
 script:
 - docker --version
-- docker build -t debian-gluster .
+- docker build -t ${DOCKER_IMAGE}:${TRAVIS_TAG} .
 
 deploy:
   provider: script
-  script:
-  - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USER" --password-stdin
-  - docker tag debian-gluster:latest $DOCKER_REPO:latest
-  - docker push $DOCKER_REPO:latest
+  script: |
+    echo ${DOCKER_HUB_PASSWORD} | docker login -u ${DOCKER_HUB_USER} --password-stdin
+    docker tag ${DOCKER_IMAGE}:${TRAVIS_TAG} ${DOCKER_IMAGE}:latest
+    docker push ${DOCKER_IMAGE}:${TRAVIS_TAG}
+    docker push ${DOCKER_IMAGE}:latest
   on:
     branch: master
