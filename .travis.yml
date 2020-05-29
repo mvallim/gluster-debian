@@ -1,8 +1,24 @@
-services:
-  - docker
-  
 sudo: required
 
+services:
+- docker
+
+env:
+  global:
+  - DOCKER_REPO=mvallim/debian-gluster
+  - secure: kpE3OUH0o3SmyBzkKMl8N5xmN+DbwyuF9A53iyS9yKVsxPB4inKWGjK7fbYMkaKp4Wx87hTVxC+kim5KehuTuHjkAzffpA65mnZw2rmWWzs5EQszL7gYzallJtLQIDlClDvznGqQviT9YU1HFIqTRGnPm4MFoCwBz6EVfXSDmDwZySeaDsjYCz5uYZYKkI0Msl6/Qy7+xt1+jzGFP6wkyKlGjkUxcqzkRHeLmNfI5Gx8mNfpu4v0KKGqIU0GQ4IOQx9bVTMEgy3YFaBp4mgW64rC1aqcg8Bg7Vz5/gZ/yqzO0RPCgdI+7wpDbo9YXG9PBvcfzkaDmL8KE77p85WGZKA/kg7xwHxHEhR12tO+e4gNxNAV9rrLr2P8pdfsoVHdt9CtVzZ7CViqsfbt+otv4mUt4TCJ3bDBUgK3/qSsor0F5YLe0oV5FwC4smMLn/wdQRb4fnLNE0PLwK448E41Z//nVmPJg/u+KifcxB604/5zeLb9zNCCnHYnmtB4qkEhdDu0/0IS39+SxHebxX1DDk5bIocTknAk+zC3Hzu/JyzmwZGRtB1vFaoz+URzC0VOlc7h4QvcDO593AIFwSSSzmEHpsA6ZX1iAxMCtPGcua8YTppz1imkjdnwcutdXj3oiqzr756Y6OOqKtgBto3X+QouzgBHsof6Ck+FPGuorTg=
+  - secure: l8Yc7ioWLwJKbVDRPtSJWj5jYLPgH5/GMYQbGpbOiwm/V+TLqzujwbNmwfGUnDIk6zvufXDviiSD7LVvcm2uUSaaqGhjln5WVPqYNhBiKfvvZ/SFcWWf4Vwd/dVg+HJRmZmYAj1HtL7XM5mg24HacdYInWHTaFRgykw0Wgg1XKeBEaiA6J8t7kxFjlyAp+QdAceKsQw3O/rNL5TCapgODt8Uh/xpDbT1ZCF8Hg9ET9eWVvp42W9duDAU3aQvddM8fJg2qRyKbuZqnrdYpG5rdXMUktIs3ObBzhny5VRCK4ccaOIIyTkHDhdewe9m5xipSEuGaNYbjmbCnyp08ngbCP9gIszkv/PHrs3NABE3+zYtyymYF2MdrrTjvhvX87BGciY9stmdrNE8pGkfWeAufGB6upMUFrOuOAibtKjqVQY77+hH2VDiKLmF404QV355v3L/Nlbu/cNNUIr7f2+27ea4i1VDvYLABZb26rX51LBKb6j642vVSAPWFv51/dlGSBj0g1RDQwyo6/DQwyznSrOLiidScFY1y5RxaAmJbB25ZWau/6ogGBcW+mUPfpwtdl2p5XJr3wSu9THJt/eZIYctMON6c5QY9LBcZEzlBtBfKX9eJQjs8qQudUN/yj4oEuG5oHu0TwaQE18gfVY5d6a7z5o0w2VREC7QudGzdVo=
+
 script:
-  - docker --version
-  - docker build -t debian-gluster .
+- docker --version
+- docker build -t debian-gluster .
+
+deploy:
+  provider: script
+  script:
+    - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USER" --password-stdin
+    - docker tag debian-gluster:latest $DOCKER_REPO:latest
+    - docker push $DOCKER_REPO:latest
+  on:
+    branch: master
+
