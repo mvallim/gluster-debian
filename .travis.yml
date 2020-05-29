@@ -16,9 +16,9 @@ script:
 deploy:
   provider: script
   script: |
-    echo ${DOCKER_HUB_PASSWORD} | docker login -u ${DOCKER_HUB_USER} --password-stdin\n
-    docker tag ${DOCKER_IMAGE}:${TRAVIS_JOB_ID} ${DOCKER_IMAGE}:latest\n
-    docker push ${DOCKER_IMAGE}:${TRAVIS_JOB_ID}\n
-    docker push ${DOCKER_IMAGE}:latest\n
+    echo ${DOCKER_HUB_PASSWORD} | docker login -u ${DOCKER_HUB_USER} --password-stdin &&
+    docker tag ${DOCKER_IMAGE}:${TRAVIS_JOB_ID} ${DOCKER_IMAGE}:latest &&
+    docker push ${DOCKER_IMAGE}:${TRAVIS_JOB_ID} &&
+    docker push ${DOCKER_IMAGE}:latest
   on:
     branch: master
