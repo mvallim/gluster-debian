@@ -1,3 +1,3 @@
-[![Build Status](https://travis-ci.org/mvallim/debian-gluster.svg?branch=master)](https://travis-ci.org/mvallim/debian-gluster)
+This repo contains dockerfiles (Debian) for GlusterFS containers namely server
 
-# debian-gluster
+# Gluster Server Docker container
