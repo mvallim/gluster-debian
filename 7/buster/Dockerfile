@@ -9,7 +9,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 MAINTAINER Marcos Vallim <tischer@gmail.com>
 
 RUN apt-get update && \
-    apt-get install -y apt-transport-https gnupg2 dirmngr && \
+    apt-get install -y apt-transport-https gnupg2 dirmngr netcat procps && \
     apt-key adv --fetch-keys https://download.gluster.org/pub/gluster/glusterfs/7/rsa.pub && \
     echo 'deb https://download.gluster.org/pub/gluster/glusterfs/7/LATEST/Debian/10/amd64/apt/ buster main' > /etc/apt/sources.list.d/gluster.list && \
     apt-get update && apt-get install -y glusterfs-server && apt-get clean
