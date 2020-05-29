@@ -11,7 +11,7 @@ MAINTAINER Marcos Vallim <tischer@gmail.com>
 RUN apt-get update && \
     apt-get install -y apt-transport-https gnupg2 dirmngr && \
     apt-key adv --fetch-keys https://download.gluster.org/pub/gluster/glusterfs/6/rsa.pub && \
-    echo 'deb https://download.gluster.org/pub/gluster/glusterfs/6/LATEST/Debian/10/amd64/apt/ stretch main' > /etc/apt/sources.list.d/gluster.list && \
+    echo 'deb https://download.gluster.org/pub/gluster/glusterfs/6/LATEST/Debian/10/amd64/apt/ buster main' > /etc/apt/sources.list.d/gluster.list && \
     apt-get update && apt-get install -y glusterfs-server && apt-get clean
 
 EXPOSE 24007-24008 24009-24109 49152-49252 38465-38467 111 2049
