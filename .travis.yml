@@ -1,2 +1,8 @@
 services:
   - docker
+  
+sudo: required
+
+script:
+  - docker --version
+  - docker build -t debian-gluster .
