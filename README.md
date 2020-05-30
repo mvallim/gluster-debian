@@ -7,16 +7,18 @@ This repo contains dockerfiles (Debian) for GlusterFS containers namely server
 
 # Gluster Server Docker container
 
+GlusterFS Docker image a non systemd distribution.
+
 Pull
 
 ```console
-docker pull mvallim/gluster-debian
+docker pull mvallim/gluster-debian:latest
 ```
 
 Run
 
 ```console
-docker run -d mvallim/gluster-debian
+docker run -d mvallim/gluster-debian:latest
 ```
 
 ## Image Variants
