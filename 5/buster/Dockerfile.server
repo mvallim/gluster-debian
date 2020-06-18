@@ -6,7 +6,8 @@ ENV LOG_LEVEL="INFO"
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-MAINTAINER Marcos Vallim <tischer@gmail.com>
+LABEL maintainer Marcos Vallim <tischer@gmail.com>
+LABEL description="GlusterFS Server"
 
 RUN apt-get update && \
     apt-get install -y apt-transport-https ca-certificates gnupg2 dirmngr netcat procps && \

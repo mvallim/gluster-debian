@@ -1,0 +1,16 @@
+FROM debian:stretch-slim
+
+ENV GLUSTERD_OPTIONS=""
+
+ENV LOG_LEVEL="INFO"
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+LABEL maintainer Marcos Vallim <tischer@gmail.com>
+LABEL description="GlusterFS client"
+
+RUN apt-get update && \
+    apt-get install -y apt-transport-https ca-certificates gnupg2 dirmngr netcat procps && \
+    apt-key adv --fetch-keys https://download.gluster.org/pub/gluster/glusterfs/4.1/rsa.pub && \
+    echo 'deb https://download.gluster.org/pub/gluster/glusterfs/4.1/LATEST/Debian/9/amd64/apt/ stretch main' > /etc/apt/sources.list.d/gluster.list && \
+    apt-get update && apt-get install -y glusterfs-client && apt-get clean
