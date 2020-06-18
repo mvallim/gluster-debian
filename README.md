@@ -21,15 +21,15 @@ Run
 docker run -d mvallim/gluster-debian:latest
 ```
 
-## Image Variants
+## Server Image Variants
 
 ```text
 mvallim/gluster-debian:<gfs-version>-<deb-version>
 ```
 
-| Gluster | Stretch     | Buster     |
-|---------|:-----------:|:----------:|
-| 4.1     | 4.1-stretch | 4.1-buster |
-| 5       | 5-stretch   | 5-buster   |
-| 6       | 6-stretch   | 6-buster   |
-| 7       | 7-stretch   | 7-buster   |
+| Gluster | Server             | Client            |
+|---------|:------------------:|:-----------------:|
+| 4.1     | 4.1-stretch-server | 4.1-buster-client |
+| 5       | 5-stretch-server   | 5-buster-client   |
+| 6       | 6-stretch-server   | 6-buster-client   |
+| 7       | 7-stretch-server   | 7-buster-client   |
