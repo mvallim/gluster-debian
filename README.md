@@ -3,31 +3,27 @@
 ![pulls](https://img.shields.io/docker/pulls/mvallim/gluster-debian)
 ![stars](https://img.shields.io/docker/stars/mvallim/gluster-debian)
 
-This repo contains dockerfiles (Debian) for GlusterFS containers namely server
+This repo contains dockerfiles (Debian) for GlusterFS containers
 
-# Gluster Server Docker container
+# Gluster Docker container
 
 GlusterFS Docker image a non systemd distribution.
 
 Pull
 
 ```console
-docker pull mvallim/gluster-debian:latest
+docker pull mvallim/gluster-debian:7-stretch-server
 ```
 
 Run
 
 ```console
-docker run -d mvallim/gluster-debian:latest
+docker run -d mvallim/gluster-debian:7-stretch-server
 ```
 
 ## Server Image Variants
 
-```text
-mvallim/gluster-debian:<gfs-version>-<deb-version>
-```
-
-| Gluster | Server             | Client            |
+| Gluster | Tag Server         | Tag Client        |
 |---------|:------------------:|:-----------------:|
 | 4.1     | 4.1-stretch-server | 4.1-buster-client |
 | 5       | 5-stretch-server   | 5-buster-client   |
