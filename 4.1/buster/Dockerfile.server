@@ -1,6 +1,6 @@
 FROM debian:buster-slim
 
-ENV GLUSTERD_OPTIONS=""
+ENV GLUSTERD_OPTIONS="--debug"
 
 ENV LOG_LEVEL="INFO"
 
@@ -9,12 +9,19 @@ ARG DEBIAN_FRONTEND=noninteractive
 LABEL maintainer Marcos Vallim <tischer@gmail.com>
 LABEL description="GlusterFS Server"
 
-RUN apt-get update && \
+COPY glusterfs-start.sh /usr/local/bin/glusterfs-start.sh
+
+RUN chmod 755 /usr/local/bin/glusterfs-start.sh && \
+    apt-get update && \
     apt-get install -y apt-transport-https ca-certificates gnupg2 dirmngr netcat procps && \
     apt-key adv --fetch-keys https://download.gluster.org/pub/gluster/glusterfs/4.1/rsa.pub && \
     echo 'deb https://download.gluster.org/pub/gluster/glusterfs/4.1/LATEST/Debian/10/amd64/apt/ buster main' > /etc/apt/sources.list.d/gluster.list && \
-    apt-get update && apt-get install -y glusterfs-server && apt-get clean
+    apt-get update && apt-get install -y glusterfs-server && apt-get clean && \
+    mv -vf /etc/glusterfs /etc/ref-glusterfs && \
+    mv -vf /var/lib/glusterd /var/lib/ref-glusterd
+
+VOLUME [ "/etc/glusterfs", "/var/lib/glusterd" ]
 
 EXPOSE 24007-24008 24009-24109 49152-49252 38465-38467 111 2049
 
-ENTRYPOINT /usr/sbin/glusterd -N -p /var/run/glusterd.pid --log-level ${LOG_LEVEL} ${GLUSTERD_OPTIONS}
+ENTRYPOINT /usr/local/bin/glusterfs-start.sh
