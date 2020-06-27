@@ -9,7 +9,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 LABEL maintainer Marcos Vallim <tischer@gmail.com>
 LABEL description="GlusterFS Server"
 
-COPY ../../glusterfs-start.sh /usr/local/bin/glusterfs-start.sh
+COPY glusterfs-start.sh /usr/local/bin/glusterfs-start.sh
 
 RUN chmod 755 /usr/local/bin/glusterfs-start.sh && \
     apt-get update && \
